@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace GeneralDictionary
 {
@@ -11,9 +12,23 @@ namespace GeneralDictionary
         public MainWindow()
         {
             InitializeComponent();
-
+            this.KeyPreview = true;
+            this.KeyDown += CheckKeyboardPresses;
             //ReadFromFile();
         }
+
+        private void CheckKeyboardPresses(object? sender, KeyEventArgs e)
+        {
+            if (e.Alt == true && e.KeyCode == Keys.R)
+            {
+                OpenAdminWindow();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.C)
+            {
+                Application.Exit();
+            }
+        }
+
 
         // 4.1 Create a Dictionary data structure with a TKey of type integer and a TValue of type string, name the new data structure “MasterFile”.
         public static Dictionary<int, string> MasterFile = new Dictionary<int, string>();
@@ -89,7 +104,8 @@ namespace GeneralDictionary
         // Read the appropriate criteria in the Admin GUI for further information.
         private void OpenAdminWindow()
         {
-
+            var adminWin = new AdminWindow();
+            adminWin.Show();
         }
 
         // 4.10 Add suitable error trapping and user feedback via a status strip or similar to ensure a fully functional User Experience.
@@ -98,17 +114,6 @@ namespace GeneralDictionary
         {
             StatusBox.Text = msg;
         }
-
-
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            OutputMessage(e.KeyCode.ToString());
-            if (e.Alt && e.KeyCode == Keys.C)
-            {
-                Application.Exit();
-            }
-        }
-
 
 
         // 4.11 Ensure all code is adequately commented. Map the programming criteria and features to your code/methods by adding comments above the method signatures.

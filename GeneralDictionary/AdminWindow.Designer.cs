@@ -69,6 +69,7 @@
             // 
             // HelpBox
             // 
+            HelpBox.Enabled = false;
             HelpBox.Location = new Point(317, 12);
             HelpBox.Multiline = true;
             HelpBox.Name = "HelpBox";
@@ -89,6 +90,7 @@
             Controls.Add(NameLabel);
             Name = "AdminWindow";
             Text = "AdminWindow [Data ID]";
+            FormClosing += SaveToFile;
             ResumeLayout(false);
             PerformLayout();
         }

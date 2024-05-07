@@ -47,16 +47,18 @@
             // 
             // HelpBox
             // 
+            HelpBox.Enabled = false;
             HelpBox.Location = new Point(598, 12);
             HelpBox.Multiline = true;
             HelpBox.Name = "HelpBox";
             HelpBox.ReadOnly = true;
             HelpBox.Size = new Size(190, 186);
             HelpBox.TabIndex = 0;
-            HelpBox.Text = "Alt + R : Open Admin Window\r\nAlt + F4 : Close Application";
+            HelpBox.Text = "Alt + R : Open Admin Window\r\nAlt + C : Close Application";
             // 
             // StatusBox
             // 
+            StatusBox.Enabled = false;
             StatusBox.Location = new Point(12, 415);
             StatusBox.Name = "StatusBox";
             StatusBox.ReadOnly = true;
@@ -148,6 +150,7 @@
             // 
             // DetailsTextbox1
             // 
+            DetailsTextbox1.Enabled = false;
             DetailsTextbox1.Location = new Point(21, 37);
             DetailsTextbox1.Multiline = true;
             DetailsTextbox1.Name = "DetailsTextbox1";
@@ -169,6 +172,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
             ClientSize = new Size(800, 450);
             Controls.Add(DetailsPanel);
             Controls.Add(FilterPanel);
@@ -178,7 +182,6 @@
             Controls.Add(HelpBox);
             Name = "MainWindow";
             Text = "Main Window";
-            KeyDown += MainWindow_KeyDown;
             FilterPanel.ResumeLayout(false);
             FilterPanel.PerformLayout();
             DetailsPanel.ResumeLayout(false);
