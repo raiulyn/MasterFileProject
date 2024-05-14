@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -35,11 +36,23 @@ namespace GeneralDictionary
 
             NameTextbox.Text = MainWindow.MasterFile[id];
             PhoneNumberTextbox.Text = id.ToString();
-            this.Text = "AdminWIndow [" + id.ToString() + "]";
+            this.Text = "AdminWindow [" + MainWindow.MasterFile[id] + "]";
         }
 
         private void CheckKeyboardPresses(object? sender, KeyEventArgs e)
         {
+            if (e.Alt == true && e.KeyCode == Keys.A)
+            {
+                UpdateEntry();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.D)
+            {
+                CreateEntry();
+            }
+            if (e.Alt == true && e.KeyCode == Keys.K)
+            {
+                RemoveEntry();
+            }
             if (e.Alt == true && e.KeyCode == Keys.C)
             {
                 CloseWindow();
@@ -51,29 +64,59 @@ namespace GeneralDictionary
         // The new staff member must be added to the Dictionary data structure.
         private void CreateEntry()
         {
-            int phoneId = int.Parse("77" + PhoneNumberTextbox.Text);
-            MainWindow.MasterFile.Add(phoneId, NameTextbox.Text);
+            try
+            {
+                int phoneId = int.Parse(PhoneNumberTextbox.Text);
+                if(MainWindow.MasterFile.ContainsKey(phoneId))
+                {
+                    OutputMessage("Phone number already exists!!!");
+                    return;
+                }
+                MainWindow.MasterFile.Add(phoneId, NameTextbox.Text);
+                CloseWindow();
+            }
+            catch (Exception ex)
+            {
+                OutputMessage(ex.Message);
+            }
         }
 
         // 5.4 Create a method that will Update the name of the current Staff ID.
-        private void UpdateEntry(int id)
+        private void UpdateEntry()
         {
+            var id = int.Parse(PhoneNumberTextbox.Text);
+            if (!MainWindow.MasterFile.ContainsKey(id)) { return; }
             MainWindow.MasterFile[id] = NameTextbox.Text;
+            CloseWindow();
         }
 
         // 5.5 Create a method that will Remove the current Staff ID and clear the text boxes.
-        private void RemoveEntry(int id)
+        private void RemoveEntry()
         {
-            MainWindow.MasterFile.Remove(id);
+            MainWindow.MasterFile.Remove(int.Parse(PhoneNumberTextbox.Text));
 
             NameTextbox.Text = string.Empty;
             PhoneNumberTextbox.Text = string.Empty;
+            CloseWindow();
         }
 
         // 5.6 Create a method that will save changes to the csv file, this method should be called as the Admin GUI closes.
         private void SaveToFile(object sender, FormClosingEventArgs e)
         {
-
+            try
+            {
+                using (StreamWriter myOutputStream = new StreamWriter("MalinStaffNamesV3.csv"))
+                {
+                    foreach (var item in MainWindow.MasterFile)
+                    {
+                        myOutputStream.WriteLine(item.Key.ToString() + "," + item.Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                OutputMessage(ex.Message);
+            }
         }
 
         // 5.7 Create a method that will close the Admin GUI when the Alt + L keys are pressed.

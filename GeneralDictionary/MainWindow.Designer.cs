@@ -54,7 +54,7 @@
             HelpBox.ReadOnly = true;
             HelpBox.Size = new Size(190, 186);
             HelpBox.TabIndex = 0;
-            HelpBox.Text = "Alt + R : Open Admin Window\r\nAlt + C : Close Application";
+            HelpBox.Text = "Alt + R : Open Admin Window\r\nAlt + K : Clear Keyword\r\nAlt + P : Clear Phone Number\r\nAlt + C : Close Application";
             // 
             // StatusBox
             // 
@@ -79,7 +79,6 @@
             // 
             FilterBox.FormattingEnabled = true;
             FilterBox.ItemHeight = 15;
-            FilterBox.Items.AddRange(new object[] { "Filter 1", "Filter 2", "Filter 3", "Filter 4" });
             FilterBox.Location = new Point(320, 204);
             FilterBox.Name = "FilterBox";
             FilterBox.Size = new Size(272, 199);
