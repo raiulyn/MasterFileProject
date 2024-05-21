@@ -25,7 +25,7 @@ namespace GeneralDictionary
 
         private void CheckKeyboardPresses(object? sender, KeyEventArgs e)
         {
-            if (e.Alt == true && e.KeyCode == Keys.R)
+            if (e.Alt == true && e.KeyCode == Keys.A)
             {
                 OpenAdminWindow();
             }

@@ -33,6 +33,7 @@
             NameTextbox = new TextBox();
             PhoneNumberTextbox = new TextBox();
             HelpBox = new TextBox();
+            OutputMessage_Textbox = new TextBox();
             SuspendLayout();
             // 
             // NameLabel
@@ -76,13 +77,22 @@
             HelpBox.ReadOnly = true;
             HelpBox.Size = new Size(136, 117);
             HelpBox.TabIndex = 4;
-            HelpBox.Text = "Alt + A : Apply\r\nAlt + D : Duplicate\r\nAlt + K : Delete\r\nAlt + C : Close";
+            HelpBox.Text = "Alt + A : Apply\r\nAlt + D : Duplicate\r\nAlt + K : Delete\r\nAlt + L : Close";
+            // 
+            // OutputMessage_Textbox
+            // 
+            OutputMessage_Textbox.Enabled = false;
+            OutputMessage_Textbox.Location = new Point(12, 135);
+            OutputMessage_Textbox.Name = "OutputMessage_Textbox";
+            OutputMessage_Textbox.Size = new Size(441, 23);
+            OutputMessage_Textbox.TabIndex = 5;
             // 
             // AdminWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(465, 148);
+            ClientSize = new Size(465, 168);
+            Controls.Add(OutputMessage_Textbox);
             Controls.Add(HelpBox);
             Controls.Add(PhoneNumberTextbox);
             Controls.Add(NameTextbox);
@@ -102,5 +112,6 @@
         private TextBox NameTextbox;
         private TextBox PhoneNumberTextbox;
         private TextBox HelpBox;
+        private TextBox OutputMessage_Textbox;
     }
 }

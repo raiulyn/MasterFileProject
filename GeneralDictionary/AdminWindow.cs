@@ -53,7 +53,7 @@ namespace GeneralDictionary
             {
                 RemoveEntry();
             }
-            if (e.Alt == true && e.KeyCode == Keys.C)
+            if (e.Alt == true && e.KeyCode == Keys.L)
             {
                 CloseWindow();
             }
@@ -66,7 +66,13 @@ namespace GeneralDictionary
         {
             try
             {
-                int phoneId = int.Parse(PhoneNumberTextbox.Text);
+                var txt = PhoneNumberTextbox.Text;
+                if (txt[0].ToString() != "7" || txt[1].ToString() != "7")
+                {
+                    OutputMessage("Phone Number must be preset with 77xxxxxxx");
+                    return;
+                }
+                int phoneId = int.Parse(txt);
                 if(MainWindow.MasterFile.ContainsKey(phoneId))
                 {
                     OutputMessage("Phone number already exists!!!");
@@ -129,7 +135,7 @@ namespace GeneralDictionary
         // Make all methods private and ensure the Dictionary is updated. 
         private void OutputMessage(string msg)
         {
-
+            OutputMessage_Textbox.Text = msg;
         }
 
         // 5.9 Ensure all code is adequately commented. Map the programming criteria and features to your code/methods by adding comments above the method signatures.

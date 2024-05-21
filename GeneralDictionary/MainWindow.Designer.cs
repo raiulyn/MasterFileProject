@@ -54,7 +54,7 @@
             HelpBox.ReadOnly = true;
             HelpBox.Size = new Size(190, 186);
             HelpBox.TabIndex = 0;
-            HelpBox.Text = "Alt + R : Open Admin Window\r\nAlt + K : Clear Keyword\r\nAlt + P : Clear Phone Number\r\nAlt + C : Close Application";
+            HelpBox.Text = "Alt + A : Open Admin Window\r\nAlt + K : Clear Keyword\r\nAlt + P : Clear Phone Number\r\nAlt + C : Close Application";
             // 
             // StatusBox
             // 
