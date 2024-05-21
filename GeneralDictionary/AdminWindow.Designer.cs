@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             NameLabel = new Label();
-            PhoneNumberLabel = new Label();
+            ID_Label = new Label();
             NameTextbox = new TextBox();
-            PhoneNumberTextbox = new TextBox();
+            ID_Textbox = new TextBox();
             HelpBox = new TextBox();
             OutputMessage_Textbox = new TextBox();
             SuspendLayout();
@@ -39,34 +39,36 @@
             // NameLabel
             // 
             NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(36, 33);
+            NameLabel.Location = new Point(36, 76);
             NameLabel.Name = "NameLabel";
             NameLabel.Size = new Size(39, 15);
             NameLabel.TabIndex = 0;
             NameLabel.Text = "Name";
             // 
-            // PhoneNumberLabel
+            // ID_Label
             // 
-            PhoneNumberLabel.AutoSize = true;
-            PhoneNumberLabel.Location = new Point(12, 77);
-            PhoneNumberLabel.Name = "PhoneNumberLabel";
-            PhoneNumberLabel.Size = new Size(88, 15);
-            PhoneNumberLabel.TabIndex = 1;
-            PhoneNumberLabel.Text = "Phone Number";
+            ID_Label.AutoSize = true;
+            ID_Label.Location = new Point(45, 34);
+            ID_Label.Name = "ID_Label";
+            ID_Label.Size = new Size(18, 15);
+            ID_Label.TabIndex = 1;
+            ID_Label.Text = "ID";
             // 
             // NameTextbox
             // 
-            NameTextbox.Location = new Point(158, 30);
+            NameTextbox.Location = new Point(158, 73);
             NameTextbox.Name = "NameTextbox";
             NameTextbox.Size = new Size(100, 23);
-            NameTextbox.TabIndex = 2;
+            NameTextbox.TabIndex = 0;
             // 
-            // PhoneNumberTextbox
+            // ID_Textbox
             // 
-            PhoneNumberTextbox.Location = new Point(158, 77);
-            PhoneNumberTextbox.Name = "PhoneNumberTextbox";
-            PhoneNumberTextbox.Size = new Size(100, 23);
-            PhoneNumberTextbox.TabIndex = 3;
+            ID_Textbox.Location = new Point(158, 26);
+            ID_Textbox.Name = "ID_Textbox";
+            ID_Textbox.ReadOnly = true;
+            ID_Textbox.Size = new Size(100, 23);
+            ID_Textbox.TabIndex = 0;
+            ID_Textbox.TabStop = false;
             // 
             // HelpBox
             // 
@@ -84,6 +86,7 @@
             OutputMessage_Textbox.Enabled = false;
             OutputMessage_Textbox.Location = new Point(12, 135);
             OutputMessage_Textbox.Name = "OutputMessage_Textbox";
+            OutputMessage_Textbox.ReadOnly = true;
             OutputMessage_Textbox.Size = new Size(441, 23);
             OutputMessage_Textbox.TabIndex = 5;
             // 
@@ -94,9 +97,9 @@
             ClientSize = new Size(465, 168);
             Controls.Add(OutputMessage_Textbox);
             Controls.Add(HelpBox);
-            Controls.Add(PhoneNumberTextbox);
+            Controls.Add(ID_Textbox);
             Controls.Add(NameTextbox);
-            Controls.Add(PhoneNumberLabel);
+            Controls.Add(ID_Label);
             Controls.Add(NameLabel);
             Name = "AdminWindow";
             Text = "AdminWindow [Data ID]";
@@ -108,9 +111,9 @@
         #endregion
 
         private Label NameLabel;
-        private Label PhoneNumberLabel;
+        private Label ID_Label;
         private TextBox NameTextbox;
-        private TextBox PhoneNumberTextbox;
+        private TextBox ID_Textbox;
         private TextBox HelpBox;
         private TextBox OutputMessage_Textbox;
     }

@@ -27,6 +27,10 @@ namespace GeneralDictionary
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += CheckKeyboardPresses;
+
+            int key = GenerateStaffID();
+            ID_Textbox.Text = key.ToString();
+            this.Text = "AdminWindow [" + key.ToString() + "]";
         }
         // 5.2 Create a method that will receive the Staff ID from the General GUI and then populate text boxes with the related data.
         public AdminWindow(int id)
@@ -36,8 +40,18 @@ namespace GeneralDictionary
             this.KeyDown += CheckKeyboardPresses;
 
             NameTextbox.Text = MainWindow.MasterFile[id];
-            PhoneNumberTextbox.Text = id.ToString();
+            ID_Textbox.Text = id.ToString();
             this.Text = "AdminWindow [" + MainWindow.MasterFile[id] + "]";
+        }
+        public AdminWindow(int id, string name)
+        {
+            InitializeComponent();
+            this.KeyPreview = true;
+            this.KeyDown += CheckKeyboardPresses;
+
+            NameTextbox.Text = name;
+            ID_Textbox.Text = id.ToString();
+            this.Text = "AdminWindow [" + name + "]";
         }
 
         private void CheckKeyboardPresses(object? sender, KeyEventArgs e)
@@ -67,19 +81,7 @@ namespace GeneralDictionary
         {
             try
             {
-                var txt = PhoneNumberTextbox.Text;
-                if (txt[0].ToString() != "7" || txt[1].ToString() != "7")
-                {
-                    OutputMessage("Phone Number must be preset with 77xxxxxxx");
-                    return;
-                }
-                int phoneId = int.Parse(txt);
-                if(MainWindow.MasterFile.ContainsKey(phoneId))
-                {
-                    OutputMessage("Phone number already exists!!!");
-                    return;
-                }
-                MainWindow.MasterFile.Add(phoneId, NameTextbox.Text);
+                MainWindow.MasterFile.Add(int.Parse(ID_Textbox.Text), NameTextbox.Text);
                 CloseWindow();
             }
             catch (Exception ex)
@@ -88,11 +90,25 @@ namespace GeneralDictionary
             }
         }
 
+        private int GenerateStaffID()
+        {
+            int key = 770000000;
+            while (MainWindow.MasterFile.ContainsKey(key))
+            {
+                key++;
+            }
+            return key;
+        }
+
         // 5.4 Create a method that will Update the name of the current Staff ID.
         private void UpdateEntry()
         {
-            var id = int.Parse(PhoneNumberTextbox.Text);
-            if (!MainWindow.MasterFile.ContainsKey(id)) { return; }
+            var id = int.Parse(ID_Textbox.Text);
+            if (!MainWindow.MasterFile.ContainsKey(id))
+            {
+                OutputMessage("No such ID existed..");
+                return;
+            }
             MainWindow.MasterFile[id] = NameTextbox.Text;
             CloseWindow();
         }
@@ -100,10 +116,16 @@ namespace GeneralDictionary
         // 5.5 Create a method that will Remove the current Staff ID and clear the text boxes.
         private void RemoveEntry()
         {
-            MainWindow.MasterFile.Remove(int.Parse(PhoneNumberTextbox.Text));
+            var id = int.Parse(ID_Textbox.Text);
+            if (!MainWindow.MasterFile.ContainsKey(id))
+            {
+                OutputMessage("No such ID existed..");
+                return;
+            }
 
+            MainWindow.MasterFile.Remove(id);
             NameTextbox.Text = string.Empty;
-            PhoneNumberTextbox.Text = string.Empty;
+            ID_Textbox.Text = string.Empty;
             CloseWindow();
         }
 
@@ -122,7 +144,7 @@ namespace GeneralDictionary
                 }
                 sw.Stop();
                 TextWriterTraceListener myListener = new TextWriterTraceListener("TextWriterOutput.log", "myListener");
-                myListener.WriteLine("Saveing to CSV file: " + sw.ElapsedTicks.ToString() + " Ticks");
+                myListener.WriteLine("Saving to CSV file: " + sw.ElapsedTicks.ToString() + " Ticks");
                 myListener.Flush();
             }
             catch (Exception ex)

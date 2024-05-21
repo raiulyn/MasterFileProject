@@ -33,9 +33,9 @@
             DataBox = new ListBox();
             FilterBox = new ListBox();
             FilterPanel = new Panel();
-            PhoneNumberTextbox = new TextBox();
+            ID_Textbox = new TextBox();
             KeywordTextbox = new TextBox();
-            PhoneNumberLabel = new Label();
+            ID_Label = new Label();
             KeywordLabel = new Label();
             FilterLabel = new Label();
             DetailsPanel = new Panel();
@@ -54,7 +54,7 @@
             HelpBox.ReadOnly = true;
             HelpBox.Size = new Size(190, 186);
             HelpBox.TabIndex = 0;
-            HelpBox.Text = "Alt + A : Open Admin Window\r\nAlt + K : Clear Keyword\r\nAlt + P : Clear Phone Number\r\nAlt + C : Close Application";
+            HelpBox.Text = "Alt + A : Open Admin Window\r\nAlt + K : Clear Keyword\r\nAlt + P : Clear ID\r\nAlt + C : Close Application";
             // 
             // StatusBox
             // 
@@ -63,17 +63,20 @@
             StatusBox.Name = "StatusBox";
             StatusBox.ReadOnly = true;
             StatusBox.Size = new Size(776, 23);
-            StatusBox.TabIndex = 1;
+            StatusBox.TabIndex = 0;
             // 
             // DataBox
             // 
+            DataBox.Enabled = false;
             DataBox.FormattingEnabled = true;
             DataBox.ItemHeight = 15;
             DataBox.Items.AddRange(new object[] { "Data 1", "Data 2", "Data 3", "Data 4", "Data 5", "Data 6", "Data 7", "Data 8", "Data 9", "Data 10" });
             DataBox.Location = new Point(12, 12);
             DataBox.Name = "DataBox";
+            DataBox.SelectionMode = SelectionMode.None;
             DataBox.Size = new Size(302, 394);
-            DataBox.TabIndex = 2;
+            DataBox.TabIndex = 0;
+            DataBox.TabStop = false;
             // 
             // FilterBox
             // 
@@ -82,50 +85,50 @@
             FilterBox.Location = new Point(320, 204);
             FilterBox.Name = "FilterBox";
             FilterBox.Size = new Size(272, 199);
-            FilterBox.TabIndex = 3;
+            FilterBox.TabIndex = 2;
             // 
             // FilterPanel
             // 
-            FilterPanel.Controls.Add(PhoneNumberTextbox);
+            FilterPanel.Controls.Add(ID_Textbox);
             FilterPanel.Controls.Add(KeywordTextbox);
-            FilterPanel.Controls.Add(PhoneNumberLabel);
+            FilterPanel.Controls.Add(ID_Label);
             FilterPanel.Controls.Add(KeywordLabel);
             FilterPanel.Controls.Add(FilterLabel);
             FilterPanel.Location = new Point(320, 12);
             FilterPanel.Name = "FilterPanel";
             FilterPanel.Size = new Size(272, 186);
-            FilterPanel.TabIndex = 4;
+            FilterPanel.TabIndex = 1;
             // 
-            // PhoneNumberTextbox
+            // ID_Textbox
             // 
-            PhoneNumberTextbox.Location = new Point(124, 94);
-            PhoneNumberTextbox.Name = "PhoneNumberTextbox";
-            PhoneNumberTextbox.Size = new Size(132, 23);
-            PhoneNumberTextbox.TabIndex = 4;
+            ID_Textbox.Location = new Point(122, 57);
+            ID_Textbox.Name = "ID_Textbox";
+            ID_Textbox.Size = new Size(132, 23);
+            ID_Textbox.TabIndex = 1;
             // 
             // KeywordTextbox
             // 
-            KeywordTextbox.Location = new Point(124, 53);
+            KeywordTextbox.Location = new Point(122, 106);
             KeywordTextbox.Name = "KeywordTextbox";
             KeywordTextbox.Size = new Size(132, 23);
-            KeywordTextbox.TabIndex = 3;
+            KeywordTextbox.TabIndex = 2;
             // 
-            // PhoneNumberLabel
+            // ID_Label
             // 
-            PhoneNumberLabel.AutoSize = true;
-            PhoneNumberLabel.Location = new Point(19, 94);
-            PhoneNumberLabel.Name = "PhoneNumberLabel";
-            PhoneNumberLabel.Size = new Size(88, 15);
-            PhoneNumberLabel.TabIndex = 2;
-            PhoneNumberLabel.Text = "Phone Number";
+            ID_Label.AutoSize = true;
+            ID_Label.Location = new Point(31, 60);
+            ID_Label.Name = "ID_Label";
+            ID_Label.Size = new Size(18, 15);
+            ID_Label.TabIndex = 0;
+            ID_Label.Text = "ID";
             // 
             // KeywordLabel
             // 
             KeywordLabel.AutoSize = true;
-            KeywordLabel.Location = new Point(19, 56);
+            KeywordLabel.Location = new Point(17, 109);
             KeywordLabel.Name = "KeywordLabel";
             KeywordLabel.Size = new Size(53, 15);
-            KeywordLabel.TabIndex = 1;
+            KeywordLabel.TabIndex = 0;
             KeywordLabel.Text = "Keyword";
             // 
             // FilterLabel
@@ -142,10 +145,12 @@
             // 
             DetailsPanel.Controls.Add(DetailsTextbox1);
             DetailsPanel.Controls.Add(label1);
+            DetailsPanel.Enabled = false;
             DetailsPanel.Location = new Point(598, 204);
             DetailsPanel.Name = "DetailsPanel";
             DetailsPanel.Size = new Size(190, 199);
-            DetailsPanel.TabIndex = 5;
+            DetailsPanel.TabIndex = 0;
+            DetailsPanel.Visible = false;
             // 
             // DetailsTextbox1
             // 
@@ -197,10 +202,10 @@
         private ListBox FilterBox;
         private Panel FilterPanel;
         private TextBox KeywordTextbox;
-        private Label PhoneNumberLabel;
+        private Label ID_Label;
         private Label KeywordLabel;
         private Label FilterLabel;
-        private TextBox PhoneNumberTextbox;
+        private TextBox ID_Textbox;
         private Panel DetailsPanel;
         private TextBox DetailsTextbox1;
         private Label label1;

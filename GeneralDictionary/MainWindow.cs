@@ -16,8 +16,8 @@ namespace GeneralDictionary
             this.KeyPreview = true;
             this.KeyDown += CheckKeyboardPresses;
             KeywordTextbox.KeyPress += KeywordTextbox_KeyPress;
-            PhoneNumberTextbox.KeyPress += PhoneNumberTextbox_KeyPress;
-            DataBox.SelectedIndexChanged += DataBox_SelectedIndexChanged;
+            ID_Textbox.KeyPress += IDTextbox_KeyPress;
+            //DataBox.SelectedIndexChanged += DataBox_SelectedIndexChanged;
             FilterBox.SelectedIndexChanged += FilterBox_SelectedIndexChanged;
             ReadFromFile();
             DisplayData();
@@ -50,9 +50,9 @@ namespace GeneralDictionary
             }
             FilterName();
         }
-        private void PhoneNumberTextbox_KeyPress(object? sender, KeyPressEventArgs e)
+        private void IDTextbox_KeyPress(object? sender, KeyPressEventArgs e)
         {
-            if(!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -81,13 +81,10 @@ namespace GeneralDictionary
 
                 Stopwatch sw = Stopwatch.StartNew();
                 List<string[]> rows = File.ReadAllLines("MalinStaffNamesV3.csv").Select(x => x.Split(',')).ToList();
-                DataTable dt = new DataTable();
-                dt.Columns.Add("1");
-                dt.Columns.Add("2");
                 for (int i = 0; i < rows.Count; i++)
                 {
                     if (rows[i][0].ToString() == string.Empty) { break; }
-                    MasterFile.Add(int.Parse( rows[i][0]), rows[i][1]);
+                    MasterFile.Add(int.Parse(rows[i][0]), rows[i][1]);
                 }
                 TextWriterTraceListener myListener = new TextWriterTraceListener("TextWriterOutput.log", "myListener");
                 myListener.WriteLine("Reading from CSV file: " + sw.ElapsedTicks.ToString() + " Ticks");
@@ -101,11 +98,11 @@ namespace GeneralDictionary
         }
 
         // 4.3 Create a method to display the Dictionary data into a non-selectable display only list box (ie read only).
-        
+
         private void DisplayData()
         {
             DataBox.Items.Clear();
-            for (int i = 0;i < MasterFile.Count;i++)
+            for (int i = 0; i < MasterFile.Count; i++)
             {
                 DataBox.Items.Add(MasterFile.ElementAt(i).Key.ToString() + "," + MasterFile.ElementAt(i).Value);
             }
@@ -128,7 +125,7 @@ namespace GeneralDictionary
         private void FilterID()
         {
             FilterBox.Items.Clear();
-            var dic = MasterFile.Where(x => x.Key.ToString().Contains(PhoneNumberTextbox.Text));
+            var dic = MasterFile.Where(x => x.Key.ToString().Contains(ID_Textbox.Text));
             foreach (var item in dic)
             {
                 FilterBox.Items.Add(item.Key.ToString() + "," + item.Value);
@@ -147,8 +144,8 @@ namespace GeneralDictionary
         // Utilise a keyboard shortcut.
         private void ClearID()
         {
-            PhoneNumberTextbox.Text = string.Empty;
-            PhoneNumberTextbox.Focus();
+            ID_Textbox.Text = string.Empty;
+            ID_Textbox.Focus();
         }
 
         // 4.8 Create a method for the filtered and selectable list box which will populate the two text boxes when a staff record is selected.
@@ -157,7 +154,7 @@ namespace GeneralDictionary
         {
             var str = selectedDat.Split(',');
             KeywordTextbox.Text = str[1];
-            PhoneNumberTextbox.Text = str[0];
+            ID_Textbox.Text = str[0];
         }
 
         // 4.9 Create a method that will open the Admin GUI when the Alt + A keys are pressed.
@@ -166,20 +163,21 @@ namespace GeneralDictionary
         // Read the appropriate criteria in the Admin GUI for further information.
         private void OpenAdminWindow()
         {
-            if (PhoneNumberTextbox.Text ==  string.Empty)
+            
+            if(ID_Textbox.Text == string.Empty)
             {
-                OutputMessage("Please input a Phone Number...");
-                return;
+                var adminWin = new AdminWindow();
+                adminWin.FormClosed += AdminWin_FormClosed;
+                adminWin.Show();
             }
-            var keyID = int.Parse(PhoneNumberTextbox.Text);
-            if (!MasterFile.ContainsKey(keyID))
+            else
             {
-                OutputMessage("No Data existed!!!");
-                return;
+                var keyID = int.Parse(ID_Textbox.Text);
+                var adminWin = new AdminWindow(keyID);
+                adminWin.FormClosed += AdminWin_FormClosed;
+                adminWin.Show();
             }
-            var adminWin = new AdminWindow(keyID);
-            adminWin.FormClosed += AdminWin_FormClosed;
-            adminWin.Show();
+            
         }
 
         private void AdminWin_FormClosed(object? sender, FormClosedEventArgs e)
@@ -193,6 +191,7 @@ namespace GeneralDictionary
         {
             StatusBox.Text = msg;
         }
+
 
 
         // 4.11 Ensure all code is adequately commented. Map the programming criteria and features to your code/methods by adding comments above the method signatures.
