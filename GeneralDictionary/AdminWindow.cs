@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 // NAME: RAYMOND LAI
 // ID: 30082866
+// DATE: 28/05/2024
 
 namespace GeneralDictionary
 {
@@ -24,6 +25,8 @@ namespace GeneralDictionary
     {
         public AdminWindow()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += CheckKeyboardPresses;
@@ -31,10 +34,16 @@ namespace GeneralDictionary
             int key = GenerateStaffID();
             ID_Textbox.Text = key.ToString();
             this.Text = "AdminWindow [" + key.ToString() + "]";
+
+            Trace.WriteLine("Initializing Admin Window: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
         // 5.2 Create a method that will receive the Staff ID from the General GUI and then populate text boxes with the related data.
         public AdminWindow(int id)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += CheckKeyboardPresses;
@@ -42,9 +51,15 @@ namespace GeneralDictionary
             NameTextbox.Text = MainWindow.MasterFile[id];
             ID_Textbox.Text = id.ToString();
             this.Text = "AdminWindow [" + MainWindow.MasterFile[id] + "]";
+
+            Trace.WriteLine("Initializing Admin Window: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
         public AdminWindow(int id, string name)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += CheckKeyboardPresses;
@@ -52,10 +67,16 @@ namespace GeneralDictionary
             NameTextbox.Text = name;
             ID_Textbox.Text = id.ToString();
             this.Text = "AdminWindow [" + name + "]";
+
+            Trace.WriteLine("Initializing Admin Window: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
 
         private void CheckKeyboardPresses(object? sender, KeyEventArgs e)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             if (e.Alt == true && e.KeyCode == Keys.A)
             {
                 UpdateEntry();
@@ -72,6 +93,10 @@ namespace GeneralDictionary
             {
                 CloseWindow();
             }
+
+            Trace.WriteLine("Admin Window-KeyboardPress: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
 
         // 5.3 Create a method that will create a new Staff ID and input the staff name from the related text box.
@@ -79,6 +104,8 @@ namespace GeneralDictionary
         // The new staff member must be added to the Dictionary data structure.
         private void CreateEntry()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             try
             {
                 MainWindow.MasterFile.Add(int.Parse(ID_Textbox.Text), NameTextbox.Text);
@@ -88,21 +115,34 @@ namespace GeneralDictionary
             {
                 OutputMessage(ex.Message);
             }
+
+            Trace.WriteLine("Create Entry: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
 
         private int GenerateStaffID()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             int key = 770000000;
             while (MainWindow.MasterFile.ContainsKey(key))
             {
                 key++;
             }
+
+            Trace.WriteLine("Generate ID: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
+
             return key;
         }
 
         // 5.4 Create a method that will Update the name of the current Staff ID.
         private void UpdateEntry()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             var id = int.Parse(ID_Textbox.Text);
             if (!MainWindow.MasterFile.ContainsKey(id))
             {
@@ -111,11 +151,17 @@ namespace GeneralDictionary
             }
             MainWindow.MasterFile[id] = NameTextbox.Text;
             CloseWindow();
+
+            Trace.WriteLine("Update Entry: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
 
         // 5.5 Create a method that will Remove the current Staff ID and clear the text boxes.
         private void RemoveEntry()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+
             var id = int.Parse(ID_Textbox.Text);
             if (!MainWindow.MasterFile.ContainsKey(id))
             {
@@ -127,6 +173,10 @@ namespace GeneralDictionary
             NameTextbox.Text = string.Empty;
             ID_Textbox.Text = string.Empty;
             CloseWindow();
+
+            Trace.WriteLine("Remove Entry: " + sw.ElapsedTicks.ToString() + " Ticks");
+            Trace.WriteLine("---------------------------------------------------------------");
+            Trace.Flush();
         }
 
         // 5.6 Create a method that will save changes to the csv file, this method should be called as the Admin GUI closes.
@@ -143,9 +193,9 @@ namespace GeneralDictionary
                     }
                 }
                 sw.Stop();
-                TextWriterTraceListener myListener = new TextWriterTraceListener("TextWriterOutput.log", "myListener");
-                myListener.WriteLine("Saving to CSV file: " + sw.ElapsedTicks.ToString() + " Ticks");
-                myListener.Flush();
+                Trace.WriteLine("Saving to CSV file: " + sw.ElapsedTicks.ToString() + " Ticks");
+                Trace.WriteLine("---------------------------------------------------------------");
+                Trace.Flush();
             }
             catch (Exception ex)
             {
